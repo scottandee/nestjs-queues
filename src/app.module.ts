@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { AppProcessor } from './app.processor';
 
 @Module({
   imports: [
@@ -30,6 +31,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppProcessor],
 })
 export class AppModule {}

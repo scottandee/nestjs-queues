@@ -13,6 +13,6 @@ export class AppController {
 
   @Post('send-mail')
   sendMail(@Body() sendMailDto: SendEmailDto) {
-    return this.appService.sendMail(sendMailDto);
+    return this.appService.addToQueue(sendMailDto);
   }
 }

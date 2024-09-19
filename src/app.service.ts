@@ -15,6 +15,15 @@ export class AppService {
     return 'Hello World!';
   }
 
+  async addToQueue(sendEmailDto: SendEmailDto) {
+    const job = await this.emailQueue.add(
+      'welcome mail',
+      sendEmailDto,
+      { priority: 1 },
+    );
+    return job;
+  }
+  
   sendMail(sendEmailDto: SendEmailDto) {
     const subject = `NestJs Queue`;
     const message = `Hi ${sendEmailDto.name}`;
