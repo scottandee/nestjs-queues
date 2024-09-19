@@ -1,10 +1,14 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { SendEmailDto } from './dto/send-email.dto';
+import { SendEmailDto } from './emails/dto/send-email.dto';
+import { EmailsService } from './emails/emails.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly emailsService: EmailsService
+  ) {}
 
   @Get()
   getHello(): string {
@@ -13,6 +17,9 @@ export class AppController {
 
   @Post('send-mail')
   sendMail(@Body() sendMailDto: SendEmailDto) {
-    return this.appService.addToQueue(sendMailDto);
+    const job = this.emailsService.addToQueue(sendMailDto);
+    return {
+      message: "Job added to queue"
+    }
   }
 }
